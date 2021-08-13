@@ -5,8 +5,8 @@ Here are two example apps for [SaaS Pegasus](https://saaspegasus.com). They are 
 * Implements a model with a few sample fields (`Name`, `Number`, and `Notes`)
 * Implements Function-Based Views for:
   * Create
-  * List (summarize all objects)
-  * Detail (details on one object)
+  * List (summarize all objects, showing their `Name` and `Number`)
+  * Details (details on one object, showing all fields)
   * Update
   * Delete
 * Implements a basic CRUD API using django-rest-framework
@@ -54,10 +54,11 @@ make migrations
 make migrate
 ```
 
-## Notes
+## Notes and Todos
 
 This is the first working version. Any and all comments and suggestions welcome. [peter@cherna.com](mailto:peter@cherna.com)
 
-The CRUD API for Toads does not yet handle team filtering and related logic.
-
-Only standard (Bulma) templates are currently supplied.
+* I hope to try building a Class-Based Views version.
+* I plan to study how to factor the team-specific code into some kind of helper or mixin.
+* The CRUD API for Toads does not yet handle team filtering and related logic.
+* Only standard (Bulma) templates are currently supplied.
