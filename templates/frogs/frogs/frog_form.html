@@ -1,0 +1,33 @@
+{% extends "frogs/base.html" %}
+{% load static %}
+{% load socialaccount %}
+{% load bulma_form_tags %}
+{% block body %}
+{% if object.id %}
+    <a class="button is-danger is-light" href="{% url 'frogs:frog-detailview' object.id %}">Cancel</a>
+{% else %}
+    <a class="button is-danger is-light" href="{% url 'frogs:frogs-listview' %}">Cancel</a>
+{% endif %}
+<div id="fullpage-form-wrapper">
+    <div id="fullpage-form">
+        {% if object.id %}
+            <h1 class="title is-size-4">Update Frog</h1>
+        {% else %}
+        <h1 class="title is-size-4">New Frog</h1>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% render_text_input form.name %}
+            {% render_text_input form.number %}
+            {% render_text_input form.details %}
+
+            <input class="button is-success is-fullwidth" type="submit" value="Save">
+
+        </form>
+
+
+
+    </div>
+</div>
+{% endblock %}
