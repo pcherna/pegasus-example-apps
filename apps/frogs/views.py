@@ -17,7 +17,7 @@ from .serializers import FrogSerializer
 def list_view(request):
     context = {}
     context['objects'] = Frog.objects.all()
-    return render(request, 'frogs/frogs_list.html', context)
+    return render(request, 'frogs/frog_list.html', context)
 
 # One object, at http://localhost:8000/frogs/1/
 @login_required

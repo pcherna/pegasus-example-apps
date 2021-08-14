@@ -24,7 +24,7 @@ def list_view(request, team_slug):
     # Only show this team's objects
     context['objects'] = Toad.objects.filter(team=request.team)
     context['team'] = team_slug
-    return render(request, 'toads/toads_list.html', context)
+    return render(request, 'toads/toad_list.html', context)
 
 # One object, at http://localhost:8000/toads/1/
 @login_and_team_required
