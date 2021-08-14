@@ -17,6 +17,6 @@ urlpatterns = [
 
 # drf config
 router = routers.DefaultRouter()
-router.register('api/toads', views.ToadViewSet)
+router.register('api/toads', views.ToadViewSet, basename='api-toad')
 
 urlpatterns += router.urls

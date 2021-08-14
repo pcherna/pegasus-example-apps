@@ -17,6 +17,6 @@ urlpatterns = [
 
 # drf config
 router = routers.DefaultRouter()
-router.register('api/frogs', views.FrogViewSet)
+router.register('api/frogs', views.FrogViewSet, basename='api-frog')
 
 urlpatterns += router.urls
