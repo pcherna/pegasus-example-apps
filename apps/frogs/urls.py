@@ -7,11 +7,11 @@ from . import views
 app_name = 'frogs'
 
 urlpatterns = [
-    path('', views.list_view, name='frogs-listview'),
-    path('<int:pk>/', views.detail_view, name='frog-detailview'),
-    path('new/', views.create_view, name='frog-createview'),
-    path('<int:pk>/update/', views.update_view, name='frog-updateview'),
-    path('<int:pk>/delete/', views.delete_view, name='frog-deleteview'),
+    path('', views.list_view, name='frog-list'),
+    path('<int:pk>/', views.detail_view, name='frog-detail'),
+    path('new/', views.create_view, name='frog-create'),
+    path('<int:pk>/update/', views.update_view, name='frog-update'),
+    path('<int:pk>/delete/', views.delete_view, name='frog-delete'),
 ]
 
 

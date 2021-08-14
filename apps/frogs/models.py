@@ -13,4 +13,4 @@ class Frog(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('frogs:frog-detailview', kwargs={'pk': self.pk})
+        return reverse('frogs:frog-detail', kwargs={'pk': self.pk})

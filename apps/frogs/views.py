@@ -35,7 +35,7 @@ def create_view(request):
     form = FrogForm(request.POST or None)
     if form.is_valid():
         saved_form = form.save()
-        return HttpResponseRedirect(reverse('frogs:frog-detailview', kwargs={'pk': saved_form.id}))
+        return HttpResponseRedirect(reverse('frogs:frog-detail', kwargs={'pk': saved_form.id}))
     context['form'] = form
     return render(request, 'frogs/frog_form.html', context)
 
@@ -48,7 +48,7 @@ def update_view(request, pk):
     form = FrogForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('frogs:frog-detailview', kwargs={'pk': pk}))
+        return HttpResponseRedirect(reverse('frogs:frog-detail', kwargs={'pk': pk}))
     context['form'] = form
     context['object'] = obj
     return render(request, 'frogs/frog_form.html', context)
@@ -59,7 +59,7 @@ def update_view(request, pk):
 def delete_view(request, pk):
     obj = get_object_or_404(Frog, id=pk)
     obj.delete()
-    return HttpResponseRedirect(reverse('frogs:frogs-listview'))
+    return HttpResponseRedirect(reverse('frogs:frog-list'))
 
 # API at /frogs/api/frogs
 class FrogViewSet(viewsets.ModelViewSet):

@@ -4,9 +4,9 @@
 {% load bulma_form_tags %}
 {% block body %}
 {% if object.id %}
-    <a class="button is-danger is-light" href="{% url 'toads:toad-detailview' team object.id %}">Cancel</a>
+    <a class="button is-danger is-light" href="{% url 'toads:toad-detail' team object.id %}">Cancel</a>
 {% else %}
-    <a class="button is-danger is-light" href="{% url 'toads:toads-listview' team %}">Cancel</a>
+    <a class="button is-danger is-light" href="{% url 'toads:toad-list' team %}">Cancel</a>
 {% endif %}
 <div id="fullpage-form-wrapper">
     <div id="fullpage-form">
@@ -20,7 +20,7 @@
             {{ form.non_field_errors }}
             {% render_text_input form.name %}
             {% render_text_input form.number %}
-            {% render_text_input form.details %}
+            {% render_text_input form.notes %}
 
             <input class="button is-success is-fullwidth" type="submit" value="Save">
 
