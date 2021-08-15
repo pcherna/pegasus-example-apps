@@ -59,7 +59,7 @@ def update_view(request, pk):
 def delete_view(request, pk):
     obj = get_object_or_404(Frog, id=pk)
     obj.delete()
-    return HttpResponseRedirect(reverse('frogs:frog-list'))
+    return HttpResponseRedirect(reverse('frogs:frog-listview'))
 
 # API at /frogs/api/frogs
 class FrogViewSet(viewsets.ModelViewSet):

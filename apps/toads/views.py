@@ -75,7 +75,7 @@ def delete_view(request, team_slug, pk):
     # Allow only if object belongs to this team
     obj = get_object_or_404(Toad, id=pk, team=request.team)
     obj.delete()
-    return HttpResponseRedirect(reverse('toads:toad-list', kwargs={'team_slug': team_slug}))
+    return HttpResponseRedirect(reverse('toads:toad-listview', kwargs={'team_slug': team_slug}))
 
 # API at /toads/api/toads
 # TODO: Does not yet have team restrictions

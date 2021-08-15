@@ -6,7 +6,7 @@
 {% if object.id %}
     <a class="button is-danger is-light" href="{% url 'toads:toad-detail' team object.id %}">Cancel</a>
 {% else %}
-    <a class="button is-danger is-light" href="{% url 'toads:toad-list' team %}">Cancel</a>
+    <a class="button is-danger is-light" href="{% url 'toads:toad-listview' team %}">Cancel</a>
 {% endif %}
 <div id="fullpage-form-wrapper">
     <div id="fullpage-form">

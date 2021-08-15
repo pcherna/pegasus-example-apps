@@ -4,14 +4,14 @@
 {% block content %}
 <div class="title is-3 mt-4">Toads</div>
 <div class="subtitle is-5">Toads are example team-specific objects using Function-Based Views</div>
-<a class="button is-primary" href="{% url 'toads:toad-create' team %}">+ New</a>
+<a class="button is-primary" href="{% url 'toads:toad-createview' team %}">+ New</a>
 {% for object in objects %}
     <div class="card mt-5">
         <div class="card-header">
-            <div class="card-header-title"><a href="{% url 'toads:toad-detail' team object.id %}">Toad {{ object.id }}</a></div>
+            <div class="card-header-title"><a href="{% url 'toads:toad-detail' team object.id %}">{{ object.name }}</a></div>
         </div>
         <div class="card-content">
-            <div>Name: {{ object.name }}</div>
+            <div>Id: {{ object.id }}</div>
             <div>Number: {{ object.number }}</div>
         </div>
     </div>

@@ -1,12 +1,12 @@
-{% extends "toads/base.html" %}
+{% extends "cheetahs/base.html" %}
 {% load static %}
 {% load i18n %}
 {% block content %}
     <div class="mt-5"></div>
-        <a class="button is-link is-light" href="{% url 'toads:toad-listview' team %}">&lt; List</a>
-        <a class="button is-primary" href="{% url 'toads:toad-createview' team %}">+ New</a>
-        <a class="button is-primary" href="{% url 'toads:toad-updateview' team object.id %}">Edit</a>
-        <a class="button is-danger is-light ml-6" href="{% url 'toads:toad-deleteview' team object.id %}">Delete</a>
+        <a class="button is-link is-light" href="{% url 'cheetahs:cheetah-listview' %}">&lt; List</a>
+        <a class="button is-primary" href="{% url 'cheetahs:cheetah-createview' %}">+ New</a>
+        <a class="button is-primary" href="{% url 'cheetahs:cheetah-updateview' object.id %}">Edit</a>
+        <a class="button is-danger is-light ml-6" href="{% url 'cheetahs:cheetah-deleteview' object.id %}">Delete</a>
         <div class="card mt-5">
             <div class="card-header">
                 <div class="card-header-title">{{ object.name }}</div>
