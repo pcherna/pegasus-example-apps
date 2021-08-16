@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TigersConfig(AppConfig):
+class CheetahsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.tigers'
+    name = 'example_apps.cheetahs'

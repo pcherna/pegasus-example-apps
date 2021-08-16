@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ToadsConfig(AppConfig):
+class TigersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.toads'
+    name = 'example_apps.tigers'
