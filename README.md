@@ -39,9 +39,9 @@ Copy the following files and folders into your Pegasus project folder:
 
 ```python
     'apps.frogs.apps.FrogsConfig',
-    'apps.toads.apps.ToadsConfig,'
-    'apps.frogs.apps.CheetahsConfig',
-    'apps.toads.apps.TigersConfig,'
+    'apps.toads.apps.ToadsConfig',
+    'apps.cheetahs.apps.CheetahsConfig',
+    'apps.tigers.apps.TigersConfig',
 ```
 
 * In `<projectslug>/urls.py`:
