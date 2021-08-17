@@ -22,15 +22,30 @@ I chose names that don't appear anywhere in the Pegasus codebase, to make it eas
 
 ## Installation
 
-### Install the app files
+### Clone the repository into your pegasus project.
 
-Copy the following files and folders into your Pegasus project folder:
+```
+git clone git@github.com:pcherna/pegasus-example-apps.git
+```
+
+### Copy the app files
+
+Copy the following files and folders into your Pegasus project folder:git@github.com:pcherna/pegas
 
 * `apps/teams/mixins.py`
-* `apps/frogs` and `templates/frogs`
-* `apps/toads` and `templates/toads`
-* `apps/cheetahs` and `templates/cheetahs`
-* `apps/tigers` and `templates/tigers`
+
+(This will be included in a future Pegasus release).
+
+### Update your Python path
+
+In `manage.py` add the following two lines:
+
+```python
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wedding_plan.settings')
+# these two lines should be added. You can map this wherever you cloned the repository.
+base_dir = Path(__file__).resolve().parent
+sys.path.append(str(base_dir / 'pegasus-example-apps'))
+```
 
 ### Integrate the new apps into your project
 
@@ -38,28 +53,37 @@ Copy the following files and folders into your Pegasus project folder:
   * To `PROJECT_APPS`, add:
 
 ```python
-    'apps.frogs.apps.FrogsConfig',
-    'apps.toads.apps.ToadsConfig',
-    'apps.cheetahs.apps.CheetahsConfig',
-    'apps.tigers.apps.TigersConfig',
+    'example_apps.frogs.apps.FrogsConfig',
+    'example_apps.toads.apps.ToadsConfig',
+    'example_apps.cheetahs.apps.CheetahsConfig',
+    'example_apps.tigers.apps.TigersConfig',
 ```
-
-* In `<projectslug>/urls.py`:
-  * To `urlpatterns`, add:
+  * To `TEMPLATES` `'DIRS'` key add:
 
 ```python
-    path('frogs/', include('apps.frogs.urls')),
-    path('cheetahs/', include('apps.cheetahs.urls')),
+  BASE_DIR / 'pegasus-example-apps' / 'templates',
+```
+
+  * In `<projectslug>/urls.py`:
+    * To `urlpatterns`, add:
+
+```python
+    path('frogs/', include('example_apps.frogs.urls')),
+    path('cheetahs/', include('example_apps.cheetahs.urls')),
 ```
 
   * To `team_urlpatterns`, add:
 
 ```python
-    path('toads/', include('apps.toads.urls')),
-    path('tigers/', include('apps.tigers.urls')),
+    path('toads/', include('example_apps.toads.urls')),
+    path('tigers/', include('example_apps.tigers.urls')),
 ```
 
 ### Update your database
+
+```bash
+./manage.py makemigrations frogs toads cheetahs tigers
+```
 
 ```bash
 make migrations
