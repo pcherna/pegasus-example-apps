@@ -24,7 +24,9 @@ I chose names that don't appear anywhere in the Pegasus codebase, to make it eas
 
 In the following instructions, replace `project_slug` with your project's name.
 
-### Clone this repository into its own folder
+### Clone this repository
+
+Clone this **pegasus-example-apps** repository into a folder next to your Pegasus project.
 
 ```bash
 git clone git@github.com:pcherna/pegasus-example-apps.git
@@ -38,7 +40,7 @@ Copy `example_apps/teams/mixins.py` into Pegasus project folder at `apps/teams/m
 
 ### Update your Python path
 
-In `manage.py` add the following two lines:
+So that your Pegasus project can find the **pegasus-example-apps**, add the following two lines to your Pegasus project's `manage.py`:
 
 ```python
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_slug.settings')
