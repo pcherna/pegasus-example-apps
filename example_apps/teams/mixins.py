@@ -1,7 +1,10 @@
 # apps/teams/mixins.py
 
 # To make a model team-specific:
-# - Add the TeamModelMixin to your model classs
+# - Add the TeamModelMixin to your model class
+# - In your model, add a get_absolute_url() that adds the team slug, e.g.:
+#    def get_absolute_url(self):
+#        return reverse('appname:model-detailview', kwargs={'team_slug': self.team.slug, 'pk': self.pk})
 # To make the views for a team-specific model:
 # - Add the LoginAndTeamRequiredMixin or TeamAdminRequiredMixin to each view class
 # - In the delete-view, add a get_success_url() method which includes
