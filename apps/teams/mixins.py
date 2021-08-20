@@ -11,8 +11,9 @@ from django.http.response import Http404, HttpResponseForbidden
 
 # apps/teams/mixins.py
 
-from .roles import user_can_access_team, user_can_administer_team
+from .roles import is_member, is_admin
 from .models import Team
+
 
 class TeamModelMixin(models.Model):
     """
@@ -46,6 +47,7 @@ class TeamAccessMixin(AccessMixin):
     class Meta:
         abstract = True
 
+
 def team_view_dispatch(permission_test_function, request, *args, **kwargs):
     user = request.user
     if not user.is_authenticated:
@@ -62,15 +64,16 @@ def team_view_dispatch(permission_test_function, request, *args, **kwargs):
                     return
     raise Http404
 
+
 class LoginAndTeamRequiredMixin(TeamAccessMixin):
     """Verify that the current user is authenticated and a member of the team."""
     def dispatch(self, request, *args, **kwargs):
-        team_view_dispatch(user_can_access_team, request, *args, **kwargs)
+        team_view_dispatch(is_member, request, *args, **kwargs)
         return super().dispatch(request, request.team_slug, *args, **kwargs)
+
 
 class TeamAdminRequiredMixin(TeamAccessMixin):
     """Verify that the current user is authenticated and admin of the team."""
     def dispatch(self, request, *args, **kwargs):
-        team_view_dispatch(user_can_administer_team, request, *args, **kwargs)
+        team_view_dispatch(is_admin, request, *args, **kwargs)
         return super().dispatch(request, request.team_slug, *args, **kwargs)
-
