@@ -6,7 +6,7 @@
         <a class="button is-link is-light" href="{% url 'tigers:tiger-listview' team.slug %}">&lt; List</a>
         <a class="button is-primary" href="{% url 'tigers:tiger-createview' team.slug %}">+ New</a>
         <a class="button is-primary" href="{% url 'tigers:tiger-updateview' team.slug object.id %}">Edit</a>
-        <a class="button is-danger is-light ml-6" href="{% url 'tigers:tiger-deleteview' team object.id %}">Delete</a>
+        <a class="button is-danger is-light ml-6" href="{% url 'tigers:tiger-deleteview' team.slug object.id %}">Delete</a>
         <div class="card mt-5">
             <div class="card-header">
                 <div class="card-header-title">{{ object.name }}</div>

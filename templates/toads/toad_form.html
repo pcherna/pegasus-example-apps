@@ -4,9 +4,9 @@
 {% load bulma_form_tags %}
 {% block body %}
 {% if object.id %}
-    <a class="button is-danger is-light" href="{% url 'toads:toad-detail' team object.id %}">Cancel</a>
+    <a class="button is-danger is-light" href="{% url 'toads:toad-detail' team.slug object.id %}">Cancel</a>
 {% else %}
-    <a class="button is-danger is-light" href="{% url 'toads:toad-listview' team %}">Cancel</a>
+    <a class="button is-danger is-light" href="{% url 'toads:toad-listview' team.slug %}">Cancel</a>
 {% endif %}
 <div id="fullpage-form-wrapper">
     <div id="fullpage-form">
