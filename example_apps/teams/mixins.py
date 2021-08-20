@@ -6,6 +6,7 @@
 # - Add the LoginAndTeamRequiredMixin or TeamAdminRequiredMixin to each view class
 # - In the delete-view, add a get_success_url() method which includes
 #       kwargs={'team_slug': self.request.team.slug}
+# - Update all references to your views to include the team slug as the first argument
 
 from django.db import models
 from django.contrib.auth.mixins import AccessMixin
