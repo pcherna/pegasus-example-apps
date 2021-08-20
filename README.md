@@ -52,6 +52,14 @@ base_dir = Path(__file__).resolve().parent
 sys.path.append(str(base_dir / 'pegasus-example-apps'))
 ```
 
+If you're using Celery you'll also need to do a similar thing in `<project_slug>/celery.py`:
+
+```python
+# add these lines after os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wedding_plan.settings')
+base_dir = Path(__file__).resolve().parent.parent
+sys.path.append(str(base_dir / 'pegasus-example-apps'))
+```
+
 ### Integrate the new apps into your project
 
 * In `project_slug/settings.py`, to `PROJECT_APPS`, add:
