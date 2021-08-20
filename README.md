@@ -1,6 +1,6 @@
 # Example Models for SaaS Pegasus
 
-Here are example apps for [SaaS Pegasus](https://saaspegasus.com):
+Here are example apps for [SaaS Pegasus](https://saaspegasus.com). You can use these to get your own apps, models, and views up and running easily.
 
 * **Frogs** uses Function-Based Views, and the objects are cross-team
 * **Toads** uses Function-Based Views, and the objects are team-specific
@@ -9,8 +9,8 @@ Here are example apps for [SaaS Pegasus](https://saaspegasus.com):
 
 Each app:
 
-* Implements a model with a few sample fields (`Name`, `Number`, and `Notes`)
-* Implements Function-Based Views for:
+* Implements a model with several sample fields (`Name`, `Number`, and `Notes`)
+* Implements views (either Function-Based or Class-Based) for:
   * Create
   * List (summarize all objects, showing their `Name` and `Number`)
   * Details (details on one object, showing all their fields)
@@ -22,26 +22,26 @@ I chose names that don't appear anywhere in the Pegasus codebase, to make it eas
 
 ## Installation
 
-### Clone the repository into your pegasus project.
+In the following instructions, replace `project_slug` with your project's name.
 
-```
+### Clone this repository into its own folder
+
+```bash
 git clone git@github.com:pcherna/pegasus-example-apps.git
 ```
 
-### Copy the app files
+### Copy teams mixin into your Pegasus project
 
-Copy the following files and folders into your Pegasus project folder:git@github.com:pcherna/pegas
+Copy `example_apps/teams/mixins.py` into Pegasus project folder at `apps/teams/mixins.py`
 
-* `apps/teams/mixins.py`
-
-(This will be included in a future Pegasus release).
+(This mixin will be included in a future Pegasus release).
 
 ### Update your Python path
 
 In `manage.py` add the following two lines:
 
 ```python
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wedding_plan.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_slug.settings')
 # these two lines should be added. You can map this wherever you cloned the repository.
 base_dir = Path(__file__).resolve().parent
 sys.path.append(str(base_dir / 'pegasus-example-apps'))
@@ -49,8 +49,7 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 
 ### Integrate the new apps into your project
 
-* In `<projectslug>/settings.py`:
-  * To `PROJECT_APPS`, add:
+* In `project_slug/settings.py`, to `PROJECT_APPS`, add:
 
 ```python
     'example_apps.frogs.apps.FrogsConfig',
@@ -58,21 +57,21 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
     'example_apps.cheetahs.apps.CheetahsConfig',
     'example_apps.tigers.apps.TigersConfig',
 ```
-  * To `TEMPLATES` `'DIRS'` key add:
+
+* Also in `project_slug/settings.py`, to `TEMPLATES` `'DIRS'` key add:
 
 ```python
   BASE_DIR / 'pegasus-example-apps' / 'templates',
 ```
 
-  * In `<projectslug>/urls.py`:
-    * To `urlpatterns`, add:
+* In `project_slug/urls.py`, to `urlpatterns`, add:
 
 ```python
     path('frogs/', include('example_apps.frogs.urls')),
     path('cheetahs/', include('example_apps.cheetahs.urls')),
 ```
 
-  * To `team_urlpatterns`, add:
+* Also in `project_slug/urls.py`, to `team_urlpatterns`, add:
 
 ```python
     path('toads/', include('example_apps.toads.urls')),
@@ -83,11 +82,7 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 
 ```bash
 ./manage.py makemigrations frogs toads cheetahs tigers
-```
-
-```bash
-make migrations
-make migrate
+./manage.py migrate
 ```
 
 ## Notes and Todos
