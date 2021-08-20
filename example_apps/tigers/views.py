@@ -20,7 +20,7 @@ from .serializers import TigerSerializer
 
 # Create your views here.
 
-# List of objects, at http://localhost:8000/tigers/
+# List of objects, at http://<server>/a/<team>/tigers/
 class TigersListView(LoginAndTeamRequiredMixin, UserPassesTestMixin, ListView):
     model = Tiger
     paginate_by = 20
@@ -30,14 +30,14 @@ class TigersListView(LoginAndTeamRequiredMixin, UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.has_perm('tigers.view_tiger')
 
-# One object, at http://localhost:8000/tigers/1/
+# One object, at http://<server>/a/<team>/tigers/1/
 class TigerDetailView(LoginAndTeamRequiredMixin, UserPassesTestMixin, DetailView):
     model = Tiger
 
     def test_func(self):
         return self.request.user.has_perm('tigers.view_tiger')
 
-# Create a new object, at http://localhost:8000/tigers/new/
+# Create a new object, at http://<server>/a/<team>/tigers/new/
 class TigerCreateView(LoginAndTeamRequiredMixin, UserPassesTestMixin, CreateView):
     model = Tiger
     form_class = TigerForm
@@ -45,12 +45,8 @@ class TigerCreateView(LoginAndTeamRequiredMixin, UserPassesTestMixin, CreateView
     def test_func(self):
         return self.request.user.has_perm('tigers.add_tiger')
 
-    def form_valid(self, form):
-        form.instance.team = self.request.team
-        return super().form_valid(form)
 
-
-# Update object, at http://localhost:8000/tigers/1/update/
+# Update object, at http://<server>/a/<team>/tigers/1/update/
 class TigerUpdateView(LoginAndTeamRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Tiger
     form_class = TigerForm
@@ -58,12 +54,12 @@ class TigerUpdateView(LoginAndTeamRequiredMixin, UserPassesTestMixin, UpdateView
     def test_func(self):
         return self.request.user.has_perm('tigers.change_tiger')
 
-# Delete object, at http://localhost:8000/tigers/1/delete/
+# Delete object, at http://<server>/a/<team>/tigers/1/delete/
 class TigerDeleteView(LoginAndTeamRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Tiger
 
     def get_success_url(self):
-        return reverse_lazy('tigers:tiger-listview', kwargs={'team_slug': self.request.team_slug})
+        return reverse_lazy('tigers:tiger-listview', kwargs={'team_slug': self.request.team.slug})
 
     def test_func(self):
         return self.request.user.has_perm('tigers.delete_tiger')

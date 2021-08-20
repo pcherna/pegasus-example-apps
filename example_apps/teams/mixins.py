@@ -1,15 +1,16 @@
+# apps/teams/mixins.py
+
 # To make a model team-specific:
 # - Add the TeamModelMixin to your model classs
 # To make the views for a team-specific model:
 # - Add the LoginAndTeamRequiredMixin or TeamAdminRequiredMixin to each view class
-# - In the create-view class, add a form_valid() method which sets form.instance.team = self.request.team
-# - In the delete-view, add a get_success_url() method which includes kwargs={'team_slug': self.request.team_slug}
+# - In the delete-view, add a get_success_url() method which includes
+#       kwargs={'team_slug': self.request.team.slug}
 
 from django.db import models
 from django.contrib.auth.mixins import AccessMixin
-from django.http.response import Http404, HttpResponseForbidden
-
-# apps/teams/mixins.py
+from django.utils.decorators import method_decorator
+from apps.teams.decorators import login_and_team_required, team_admin_required
 
 from .roles import is_member, is_admin
 from .models import Team
@@ -26,7 +27,7 @@ class TeamModelMixin(models.Model):
         abstract = True
 
 
-class TeamAccessMixin(AccessMixin):
+class TeamObjectViewMixin(AccessMixin):
     """
     Abstract model for views with a team relationship
     """
@@ -40,6 +41,10 @@ class TeamAccessMixin(AccessMixin):
         """Narrow queryset to only include objects of this team."""
         return self.model.objects.filter(team=self.request.team)
 
+    def form_valid(self, form):
+        form.instance.team = self.request.team
+        return super().form_valid(form)
+
     # For deletion, it would be nice if we could override get_success_url to include
     #     kwargs={'team_slug': self.object.team.slug}
     # I don't yet know if that can be done with a mixin
@@ -48,32 +53,21 @@ class TeamAccessMixin(AccessMixin):
         abstract = True
 
 
-def team_view_dispatch(permission_test_function, request, *args, **kwargs):
-    user = request.user
-    if not user.is_authenticated:
-        raise HttpResponseForbidden
-    else:
-        if 'team_slug' in kwargs:
-            team_slug = kwargs['team_slug']
-            team = Team.objects.get(slug=team_slug)
-            if team:
-                if permission_test_function(user, team):
-                    request.team = team
-                    request.team_slug = team_slug
-                    request.session['team'] = team.id  # set in session for other views to access
-                    return
-    raise Http404
+class LoginAndTeamRequiredMixin(TeamObjectViewMixin):
+    """
+    Verify that the current user is authenticated and a member of the team.
+    """
 
-
-class LoginAndTeamRequiredMixin(TeamAccessMixin):
-    """Verify that the current user is authenticated and a member of the team."""
+    @method_decorator(login_and_team_required)
     def dispatch(self, request, *args, **kwargs):
-        team_view_dispatch(is_member, request, *args, **kwargs)
-        return super().dispatch(request, request.team_slug, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
-class TeamAdminRequiredMixin(TeamAccessMixin):
-    """Verify that the current user is authenticated and admin of the team."""
+class TeamAdminRequiredMixin(TeamObjectViewMixin):
+    """
+    Verify that the current user is authenticated and admin of the team.
+    """
+
+    @method_decorator(team_admin_required)
     def dispatch(self, request, *args, **kwargs):
-        team_view_dispatch(is_admin, request, *args, **kwargs)
-        return super().dispatch(request, request.team_slug, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)

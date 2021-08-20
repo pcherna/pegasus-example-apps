@@ -11,7 +11,7 @@ from .models import Frog
 from .forms import FrogForm
 from .serializers import FrogSerializer
 
-# List of objects, at http://localhost:8000/frogs/
+# List of objects, at http://<server>/frogs/
 @login_required
 @permission_required('frogs.view_frog', raise_exception=True)
 def list_view(request):
@@ -19,7 +19,7 @@ def list_view(request):
     context['objects'] = Frog.objects.all()
     return render(request, 'frogs/frog_list.html', context)
 
-# One object, at http://localhost:8000/frogs/1/
+# One object, at http://<server>/frogs/1/
 @login_required
 @permission_required('frogs.view_frog', raise_exception=True)
 def detail_view(request, pk):
@@ -27,7 +27,7 @@ def detail_view(request, pk):
     context['object'] = Frog.objects.get(id=pk)
     return render(request, 'frogs/frog_detail.html', context)
 
-# Create a new object, at http://localhost:8000/frogs/new/
+# Create a new object, at http://<server>/frogs/new/
 @login_required
 @permission_required('frogs.add_frog', raise_exception=True)
 def create_view(request):
@@ -39,7 +39,7 @@ def create_view(request):
     context['form'] = form
     return render(request, 'frogs/frog_form.html', context)
 
-# Update object, at http://localhost:8000/frogs/1/update/
+# Update object, at http://<server>/frogs/1/update/
 @login_required
 @permission_required('frogs.change_frog', raise_exception=True)
 def update_view(request, pk):
@@ -53,7 +53,7 @@ def update_view(request, pk):
     context['object'] = obj
     return render(request, 'frogs/frog_form.html', context)
 
-# delete object, at http://localhost:8000/frogs/1/delete/
+# delete object, at http://<server>/frogs/1/delete/
 @login_required
 @permission_required('frogs.delete_frog', raise_exception=True)
 def delete_view(request, pk):

@@ -19,7 +19,7 @@ from .serializers import CheetahSerializer
 
 # Create your views here.
 
-# List of objects, at http://localhost:8000/cheetahs/
+# List of objects, at http://<server>/cheetahs/
 class CheetahsListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Cheetah
     paginate_by = 20
@@ -29,14 +29,14 @@ class CheetahsListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.has_perm('cheetahs.view_cheetah')
 
-# One object, at http://localhost:8000/cheetahs/1/
+# One object, at http://<server>/cheetahs/1/
 class CheetahDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Cheetah
 
     def test_func(self):
         return self.request.user.has_perm('cheetahs.view_cheetah')
 
-# Create a new object, at http://localhost:8000/cheetahs/new/
+# Create a new object, at http://<server>/cheetahs/new/
 class CheetahCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Cheetah
     form_class = CheetahForm
@@ -44,7 +44,7 @@ class CheetahCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.has_perm('cheetahs.add_cheetah')
 
-# Update object, at http://localhost:8000/cheetahs/1/update/
+# Update object, at http://<server>/cheetahs/1/update/
 class CheetahUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Cheetah
     form_class = CheetahForm
@@ -52,7 +52,7 @@ class CheetahUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.has_perm('cheetahs.change_cheetah')
 
-# Delete object, at http://localhost:8000/cheetahs/1/delete/
+# Delete object, at http://<server>/cheetahs/1/delete/
 class CheetahDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Cheetah
     success_url = reverse_lazy('cheetahs:cheetah-listview')
