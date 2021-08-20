@@ -47,7 +47,7 @@ def create_view(request, team_slug):
         # Add my team to the object
         new_object.team = request.team
         new_object.save()
-        return HttpResponseRedirect(reverse('toads:toad-detail', kwargs={'team_slug': team_slug, 'pk': new_object.id}))
+        return HttpResponseRedirect(reverse('toads:toad-detailview', kwargs={'team_slug': team_slug, 'pk': new_object.id}))
     context['form'] = form
     context['team'] = team_slug
     return render(request, 'toads/toad_form.html', context)
@@ -62,7 +62,7 @@ def update_view(request, team_slug, pk):
     form = ToadForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('toads:toad-detail', kwargs={'team_slug': team_slug, 'pk': pk}))
+        return HttpResponseRedirect(reverse('toads:toad-detailview', kwargs={'team_slug': team_slug, 'pk': pk}))
     context['form'] = form
     context['team'] = team_slug
     context['object'] = obj

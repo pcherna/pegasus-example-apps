@@ -8,7 +8,7 @@ app_name = 'tigers'
 
 urlpatterns = [
     path('', views.TigersListView.as_view(), name='tiger-listview'),
-    path('<int:pk>/', views.TigerDetailView.as_view(), name='tiger-detail'),
+    path('<int:pk>/', views.TigerDetailView.as_view(), name='tiger-detailview'),
     path('new/', views.TigerCreateView.as_view(), name='tiger-createview'),
     path('<int:pk>/update/', views.TigerUpdateView.as_view(), name='tiger-updateview'),
     path('<int:pk>/delete/', views.TigerDeleteView.as_view(), name='tiger-deleteview'),

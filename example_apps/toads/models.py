@@ -17,4 +17,4 @@ class Toad(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('toads:toad-detail', kwargs={'team_slug': self.team.slug, 'pk': self.pk})
+        return reverse('toads:toad-detailview', kwargs={'team_slug': self.team.slug, 'pk': self.pk})

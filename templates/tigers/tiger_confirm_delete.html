@@ -13,7 +13,7 @@
             <h2>Are you sure you want to delete the tiger "{{ object.name }}"?</h2>
 
             <div class="form-group mt-4">
-                <a class="button is-primary" href="{% url 'tigers:tiger-detail' team.slug object.id %}">Cancel</a>
+                <a class="button is-primary" href="{% url 'tigers:tiger-detailview' team.slug object.id %}">Cancel</a>
                 <button class="ml-4 button is-danger" type="submit">Yes, Delete</button>
             </div>
 

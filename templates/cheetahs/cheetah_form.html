@@ -4,7 +4,7 @@
 {% load bulma_form_tags %}
 {% block body %}
 {% if object.id %}
-    <a class="button is-danger is-light" href="{% url 'cheetahs:cheetah-detail' object.id %}">Cancel</a>
+    <a class="button is-danger is-light" href="{% url 'cheetahs:cheetah-detailview' object.id %}">Cancel</a>
 {% else %}
     <a class="button is-danger is-light" href="{% url 'cheetahs:cheetah-listview' %}">Cancel</a>
 {% endif %}

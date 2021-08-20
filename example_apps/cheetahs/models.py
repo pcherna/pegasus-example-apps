@@ -13,4 +13,4 @@ class Cheetah(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("cheetahs:cheetah-detail", kwargs={"pk": self.pk})
+        return reverse('cheetahs:cheetah-detailview', kwargs={'pk': self.pk})

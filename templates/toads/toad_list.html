@@ -8,7 +8,7 @@
 {% for object in objects %}
     <div class="card mt-5">
         <div class="card-header">
-            <div class="card-header-title"><a href="{% url 'toads:toad-detail' team.slug object.id %}">{{ object.name }}</a></div>
+            <div class="card-header-title"><a href="{% url 'toads:toad-detailview' team.slug object.id %}">{{ object.name }}</a></div>
         </div>
         <div class="card-content">
             <div>Id: {{ object.id }}</div>

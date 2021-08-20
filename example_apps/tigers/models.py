@@ -15,4 +15,4 @@ class Tiger(TeamModelMixin, BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("tigers:tiger-detail", kwargs={'team_slug': self.team.slug, 'pk': self.pk})
+        return reverse('tigers:tiger-detailview', kwargs={'team_slug': self.team.slug, 'pk': self.pk})
