@@ -40,11 +40,14 @@ Copy `example_apps/teams/mixins.py` into Pegasus project folder at `apps/teams/m
 
 ### Update your Python path
 
-So that your Pegasus project can find the **pegasus-example-apps**, add the following two lines to your Pegasus project's `manage.py`:
+So that your Pegasus project can find the **pegasus-example-apps**, add the following your Pegasus project's `manage.py`:
 
 ```python
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_slug.settings')
-# these two lines should be added. You can map this wherever you cloned the repository.
+# Add this after import sys
+from pathlib import Path
+...
+# Add this after the os.environ.setdefault(...) statement
+# You can map this wherever you cloned the repository.
 base_dir = Path(__file__).resolve().parent
 sys.path.append(str(base_dir / 'pegasus-example-apps'))
 ```
