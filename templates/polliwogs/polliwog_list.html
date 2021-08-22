@@ -7,6 +7,9 @@
 {% if perms.polliwogs.add_polliwog %}
     <a class="button is-primary" href="{% url 'polliwogs:polliwog-createview' team.slug %}">+ New Polliwog</a>
 {% endif %}
+
+{% include "web/components/paginator.html" %}
+
 {% for object in objects %}
     <div class="card mt-5">
         <div class="card-header">
@@ -18,4 +21,7 @@
         </div>
     </div>
 {% endfor %}
+
+{% include "web/components/paginator.html" %}
+
 {% endblock %}

@@ -5,6 +5,9 @@
 <div class="title is-3 mt-4">Cheetahs</div>
 <div class="subtitle is-5">Cheetahs are example cross-team objects using Class-Based Views</div>
 <a class="button is-primary" href="{% url 'cheetahs:cheetah-createview' %}">+ New Cheetah</a>
+
+{% include "web/components/paginator.html" %}
+
 {% for object in objects %}
     <div class="card mt-5">
         <div class="card-header">
@@ -16,4 +19,7 @@
         </div>
     </div>
 {% endfor %}
+
+{% include "web/components/paginator.html" %}
+
 {% endblock %}

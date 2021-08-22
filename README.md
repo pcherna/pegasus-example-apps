@@ -14,7 +14,7 @@ Each app:
 * Implements a model with several sample fields (`Name`, `Number`, and `Notes`)
 * Implements views (either Function-Based or Class-Based) for:
   * Create
-  * List (summarize all objects, showing their `Name` and `Number`)
+  * List (summarize all objects, showing their `Name` and `Number`, including pagination)
   * Details (details on one object, showing all their fields)
   * Update
   * Delete
@@ -39,6 +39,10 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
 Copy `example_apps/teams/mixins.py` into Pegasus project folder at `apps/teams/mixins.py`
 
 (This mixin will be included in a future Pegasus release).
+
+### Copy Paginator into your Pegasus project
+
+Copy `templates/web/components/paginator.html` into Pegasus project folder at `templates/web/components/paginator.html`
 
 ### Update your Python path
 
@@ -111,5 +115,4 @@ Any and all comments and suggestions welcome. [peter@cherna.com](mailto:peter@ch
 * I have a decent mixin for team-specific apps using Class Based Views (see `apps/teams/mixins`, but not everything is transparently solved
 * The API entry points for Team-specific apps (Toads, Tigers, Pumas) handles team-filtering and related logic, but I'd like to build a clean Mixin to handle that
 * Only standard (Bulma) templates are currently supplied
-* I would like to add pagination support to the views
 * There is an `UnorderedObjectListWarning` I haven't yet looked into, for team-specific CBVs
