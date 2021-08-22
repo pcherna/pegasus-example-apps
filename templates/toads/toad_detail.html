@@ -3,13 +3,13 @@
 {% load i18n %}
 {% block content %}
     <div class="mt-5"></div>
-        <a class="button is-link is-light" href="{% url 'toads:toad-listview' team.slug %}">&lt; List</a>
+        <a class="button is-link is-light" href="{% url 'toads:toad-listview' team.slug %}">&lt; Toad List</a>
         <a class="button is-primary" href="{% url 'toads:toad-createview' team.slug %}">+ New</a>
         <a class="button is-primary" href="{% url 'toads:toad-updateview' team.slug object.id %}">Edit</a>
         <a class="button is-danger is-light ml-6" href="{% url 'toads:toad-deleteview' team.slug object.id %}">Delete</a>
         <div class="card mt-5">
             <div class="card-header">
-                <div class="card-header-title">{{ object.name }}</div>
+                <div class="card-header-title is-size-4">{{ object.name }}</div>
             </div>
             <div class="card-content">
                 <div>Id: {{ object.id }}</div>

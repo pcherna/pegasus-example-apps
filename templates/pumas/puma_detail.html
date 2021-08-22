@@ -1,12 +1,18 @@
-{% extends "tigers/base.html" %}
+{% extends "pumas/base.html" %}
 {% load static %}
 {% load i18n %}
 {% block content %}
     <div class="mt-5"></div>
-        <a class="button is-link is-light" href="{% url 'tigers:tiger-listview' team.slug %}">&lt; Tiger List</a>
-        <a class="button is-primary" href="{% url 'tigers:tiger-createview' team.slug %}">+ New</a>
-        <a class="button is-primary" href="{% url 'tigers:tiger-updateview' team.slug object.id %}">Edit</a>
-        <a class="button is-danger is-light ml-6" href="{% url 'tigers:tiger-deleteview' team.slug object.id %}">Delete</a>
+        <a class="button is-link is-light" href="{% url 'pumas:puma-listview' team.slug %}">&lt; Puma List</a>
+        {% if perms.pumas.add_puma %}
+            <a class="button is-primary" href="{% url 'pumas:puma-createview' team.slug %}">+ New</a>
+        {% endif %}
+        {% if perms.pumas.change_puma %}
+            <a class="button is-primary" href="{% url 'pumas:puma-updateview' team.slug object.id %}">Edit</a>
+        {% endif %}
+        {% if perms.pumas.delete_puma %}
+            <a class="button is-danger is-light ml-6" href="{% url 'pumas:puma-deleteview' team.slug object.id %}">Delete</a>
+        {% endif %}
         <div class="card mt-5">
             <div class="card-header">
                 <div class="card-header-title is-size-4">{{ object.name }}</div>

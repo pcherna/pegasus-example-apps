@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from .models import Toad
+from .models import Puma
 
 
-class ToadSerializer(serializers.ModelSerializer):
+class PumaSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Toad
+        model = Puma
         fields = ('id', 'name', 'number', 'notes')

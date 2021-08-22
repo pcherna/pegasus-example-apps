@@ -4,8 +4,10 @@ Here are example apps for [SaaS Pegasus](https://saaspegasus.com). You can use t
 
 * **Frogs** uses Function-Based Views, and the objects are cross-team
 * **Toads** uses Function-Based Views, and the objects are team-specific
+* **Polliwogs** are like Toads, but also implement Django-object permissions
 * **Cheetahs** uses Class-Based Views, and the objects are cross-team
 * **Tigers** uses Class-Based Views, and the objects are team-specific
+* **Pumas** are like Tigers, but also implement Django-object permissions
 
 Each app:
 
@@ -18,7 +20,7 @@ Each app:
   * Delete
 * Implements a basic CRUD API using django-rest-framework
 
-I chose names that don't appear anywhere in the Pegasus codebase, to make it easy to search/replace if you use these to build your own apps. **Frogs** is mnemonic for **F**unction-Based Views, and **Cheetahs** is mnemonic for **C**lass-Based Views. **Toads** and **Tigers** are mnemonic for **T**eam-specific, and are of course cousins to Frogs and Cheetahs.
+I chose names that don't appear anywhere in the Pegasus codebase, to make it easy to search/replace if you use these to build your own apps. **Frogs** is mnemonic for **F**unction-Based Views, and **Cheetahs** is mnemonic for **C**lass-Based Views. **Toads** and **Tigers** are mnemonic for **T**eam-specific, and are of course cousins to Frogs and Cheetahs. **Polliwogs** and **Pumas** are mnemonic for **P**ermissions-based.
 
 ## Installation
 
@@ -67,8 +69,10 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 ```python
     'example_apps.frogs.apps.FrogsConfig',
     'example_apps.toads.apps.ToadsConfig',
+    'example_apps.polliwogs.apps.PolliwogsConfig',
     'example_apps.cheetahs.apps.CheetahsConfig',
     'example_apps.tigers.apps.TigersConfig',
+    'example_apps.pumas.apps.PumasConfig',
 ```
 
 * Also in `project_slug/settings.py`, to `TEMPLATES` `'DIRS'` key add:
@@ -88,13 +92,15 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 
 ```python
     path('toads/', include('example_apps.toads.urls')),
+    path('polliwogs/', include('example_apps.polliwogs.urls')),
     path('tigers/', include('example_apps.tigers.urls')),
+    path('pumas/', include('example_apps.pumas.urls')),
 ```
 
 ### Update your database
 
 ```bash
-./manage.py makemigrations frogs toads cheetahs tigers
+./manage.py makemigrations frogs toads polliwogs cheetahs tigers pumas
 ./manage.py migrate
 ```
 
@@ -102,8 +108,8 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 
 Any and all comments and suggestions welcome. [peter@cherna.com](mailto:peter@cherna.com)
 
-* I have a decent mixin for team-specific apps using Class Based Views (see `apps/teams/mixins`, but not everything is transparently solved. Looking to see if I can carry this further. I don't yet have a strategy for common team code for team-specific apps using Function Based Views.
-* The API for Toads and Tigers does not yet handle team filtering and related logic.
-* Only standard (Bulma) templates are currently supplied.
+* I have a decent mixin for team-specific apps using Class Based Views (see `apps/teams/mixins`, but not everything is transparently solved
+* The API entry points for Team-specific apps (Toads, Tigers, Pumas) handles team-filtering and related logic, but I'd like to build a clean Mixin to handle that
+* Only standard (Bulma) templates are currently supplied
 * I would like to add pagination support to the views
 * There is an `UnorderedObjectListWarning` I haven't yet looked into, for team-specific CBVs

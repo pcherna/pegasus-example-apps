@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from .models import Toad
+from .models import Polliwog
 
 
-class ToadSerializer(serializers.ModelSerializer):
+class PolliwogSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Toad
+        model = Polliwog
         fields = ('id', 'name', 'number', 'notes')

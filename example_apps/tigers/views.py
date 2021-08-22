@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from rest_framework.permissions import DjangoModelPermissions
-from django.contrib.auth.mixins import UserPassesTestMixin
+from rest_framework.exceptions import PermissionDenied
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import (
     ListView,
     DetailView,
@@ -10,72 +10,73 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 
-from apps.teams.mixins import LoginAndTeamRequiredMixin
 
 from .models import Tiger
-# from .permissions import TigerAccessPermissions
 from .forms import TigerForm
 # from .admin import TigerResource
 from .serializers import TigerSerializer
 
+from apps.teams.models import Team
+from apps.teams.mixins import LoginAndTeamRequiredMixin
+from apps.teams.roles import is_admin, is_member
+from apps.teams.permissions import TeamAccessPermissions, TeamModelAccessPermissions
+
 # Create your views here.
 
 # List of objects, at http://<server>/a/<team>/tigers/
-class TigersListView(LoginAndTeamRequiredMixin, UserPassesTestMixin, ListView):
+class TigersListView(LoginAndTeamRequiredMixin, ListView):
     model = Tiger
     paginate_by = 20
     template_name = 'tigers/tiger_list.html'
     context_object_name = 'objects'
 
-    def test_func(self):
-        return self.request.user.has_perm('tigers.view_tiger')
 
 # One object, at http://<server>/a/<team>/tigers/1/
-class TigerDetailView(LoginAndTeamRequiredMixin, UserPassesTestMixin, DetailView):
+class TigerDetailView(LoginAndTeamRequiredMixin, DetailView):
     model = Tiger
 
-    def test_func(self):
-        return self.request.user.has_perm('tigers.view_tiger')
 
 # Create a new object, at http://<server>/a/<team>/tigers/new/
-class TigerCreateView(LoginAndTeamRequiredMixin, UserPassesTestMixin, CreateView):
+class TigerCreateView(LoginAndTeamRequiredMixin, CreateView):
     model = Tiger
     form_class = TigerForm
-
-    def test_func(self):
-        return self.request.user.has_perm('tigers.add_tiger')
 
 
 # Update object, at http://<server>/a/<team>/tigers/1/update/
-class TigerUpdateView(LoginAndTeamRequiredMixin, UserPassesTestMixin, UpdateView):
+class TigerUpdateView(LoginAndTeamRequiredMixin, UpdateView):
     model = Tiger
     form_class = TigerForm
 
-    def test_func(self):
-        return self.request.user.has_perm('tigers.change_tiger')
 
 # Delete object, at http://<server>/a/<team>/tigers/1/delete/
-class TigerDeleteView(LoginAndTeamRequiredMixin, UserPassesTestMixin, DeleteView):
+class TigerDeleteView(LoginAndTeamRequiredMixin, DeleteView):
     model = Tiger
 
     def get_success_url(self):
         return reverse_lazy('tigers:tiger-listview', kwargs={'team_slug': self.request.team.slug})
 
-    def test_func(self):
-        return self.request.user.has_perm('tigers.delete_tiger')
 
-# API at /tigers/api/tigers
+# API at http://localhost:8000/a/<team>/tigers/api/tigers/
 class TigerViewSet(viewsets.ModelViewSet):
-    serializer_class = TigerSerializer
     queryset = Tiger.objects.all()
-    # ZZZ: Not sure why yet, but all users seem to be able to Read
-    permission_classes = (DjangoModelPermissions,)
+    serializer_class = TigerSerializer
+    permission_classes = (TeamModelAccessPermissions,)
 
     # permission_classes = (TigerAccessPermissions,)
 
-    # def get_queryset(self):
-    #     # filter queryset based on logged in user
-    #     return self.request.user.tigers.all()
+    @property
+    def team(self):
+        """Get the team from the URL, and ensure user is a member."""
+        team = get_object_or_404(Team, slug=self.kwargs['team_slug'])
+        if is_member(self.request.user, team):
+            return team
+        else:
+            raise PermissionDenied()
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    def get_queryset(self):
+        """Filter queryset based on logged-in user's team."""
+        return self.queryset.filter(team=self.team)
+
+    def perform_create(self, serializer):
+        """Add team to the model during creation."""
+        serializer.save(team=self.team)

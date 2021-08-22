@@ -1,0 +1,21 @@
+{% extends "polliwogs/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="title is-3 mt-4">Polliwogs</div>
+<div class="subtitle is-5">Polliwogs are example team-specific objects using Function-Based Views, with permissions</div>
+{% if perms.polliwogs.add_polliwog %}
+    <a class="button is-primary" href="{% url 'polliwogs:polliwog-createview' team.slug %}">+ New Polliwog</a>
+{% endif %}
+{% for object in objects %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <div class="card-header-title is-size-4"><a href="{% url 'polliwogs:polliwog-detailview' team.slug object.id %}">{{ object.name }}</a></div>
+        </div>
+        <div class="card-content">
+            <div>Id: {{ object.id }}</div>
+            <div>Number: {{ object.number }}</div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
