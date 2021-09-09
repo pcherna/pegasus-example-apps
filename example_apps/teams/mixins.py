@@ -14,27 +14,17 @@
 from django.db import models
 from django.contrib.auth.mixins import AccessMixin
 from django.utils.decorators import method_decorator
+
 from apps.teams.decorators import login_and_team_required, team_admin_required
 
-from .roles import is_member, is_admin
 from .models import Team
-
-
-class TeamModelMixin(models.Model):
-    """
-    Abstract model for objects with a team relationship
-    """
-    team = models.ForeignKey(Team, verbose_name="Team",
-        on_delete=models.DO_NOTHING, blank=False, null=False, editable=True)
-
-    class Meta:
-        abstract = True
 
 
 class TeamObjectViewMixin(AccessMixin):
     """
-    Abstract model for views with a team relationship
+    Abstract model for Django class-based views for a model that belongs to a Team
     """
+
     def get_context_data(self, *args, **kwargs):
         """Add team to the context, for use by templates."""
         context = super().get_context_data(*args, **kwargs)
@@ -75,3 +65,16 @@ class TeamAdminRequiredMixin(TeamObjectViewMixin):
     @method_decorator(team_admin_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+
+class TeamModelMixin(models.Model):
+    """
+    Abstract model for objects with a team relationship
+    """
+    team = models.ForeignKey(Team, verbose_name="Team",
+        on_delete=models.DO_NOTHING, blank=False, null=False, editable=True)
+
+    class Meta:
+        abstract = True
+
+

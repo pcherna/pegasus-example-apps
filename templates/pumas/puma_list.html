@@ -10,7 +10,7 @@
 
 {% include "web/components/paginator.html" %}
 
-{% for object in objects %}
+{% for object in object_list %}
     <div class="card mt-5">
         <div class="card-header">
             <div class="card-header-title is-size-4"><a href="{% url 'pumas:puma-detailview' team.slug object.id %}">{{ object.name }}</a></div>

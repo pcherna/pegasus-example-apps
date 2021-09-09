@@ -23,7 +23,6 @@ class CheetahsListView(LoginRequiredMixin, ListView):
     model = Cheetah
     paginate_by = 20
     template_name = 'cheetahs/cheetah_list.html'
-    context_object_name = 'objects'
 
 
 # One object, at http://<server>/cheetahs/1/

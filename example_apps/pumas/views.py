@@ -30,7 +30,6 @@ class PumasListView(LoginAndTeamRequiredMixin, UserPassesTestMixin, ListView):
     model = Puma
     paginate_by = 20
     template_name = 'pumas/puma_list.html'
-    context_object_name = 'objects'
 
     def test_func(self):
         return self.request.user.has_perm('pumas.view_puma')

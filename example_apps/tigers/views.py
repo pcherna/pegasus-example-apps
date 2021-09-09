@@ -28,7 +28,6 @@ class TigersListView(LoginAndTeamRequiredMixin, ListView):
     model = Tiger
     paginate_by = 20
     template_name = 'tigers/tiger_list.html'
-    context_object_name = 'objects'
 
 
 # One object, at http://<server>/a/<team>/tigers/1/
