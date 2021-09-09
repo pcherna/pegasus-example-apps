@@ -8,6 +8,7 @@ Here are example apps for [SaaS Pegasus](https://saaspegasus.com). You can use t
 * **Cheetahs** uses Class-Based Views, and the objects are cross-team
 * **Tigers** uses Class-Based Views, and the objects are team-specific
 * **Pumas** are like Tigers, but also implement Django-object permissions
+* **Herons** are like Cheetahs, but use htmx to cleanly update the list when moving through pages of objects
 
 Each app:
 
@@ -20,7 +21,13 @@ Each app:
   * Delete
 * Implements a basic CRUD API using django-rest-framework
 
-I chose names that don't appear anywhere in the Pegasus codebase, to make it easy to search/replace if you use these to build your own apps. **Frogs** is mnemonic for **F**unction-Based Views, and **Cheetahs** is mnemonic for **C**lass-Based Views. **Toads** and **Tigers** are mnemonic for **T**eam-specific, and are of course cousins to Frogs and Cheetahs. **Polliwogs** and **Pumas** are mnemonic for **P**ermissions-based.
+I chose names that don't appear anywhere in the Pegasus codebase, to make it easy to search/replace if you use these to build your own apps. I use mnemonics:
+
+* **Frogs** is mnemonic for **F**unction-Based Views
+* **Cheetahs** is mnemonic for **C**lass-Based Views
+* **Toads** and **Tigers** are mnemonic for **T**eam-specific, and are of course cousins to Frogs and Cheetahs. 
+* **Polliwogs** and **Pumas** are mnemonic for **P**ermissions-based.
+* **Herons** are mnemonic for "htmx"
 
 ## Installation
 
@@ -38,11 +45,12 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
 
 Copy `example_apps/teams/mixins.py` into Pegasus project folder at `apps/teams/mixins.py`
 
-(This mixin will be included in a future Pegasus release).
+Note: Pegasus includes a mixins.py that is derived from this project, but for now you need to use the version included with this project.
 
 ### Copy Paginator into your Pegasus project
 
 Copy `templates/web/components/paginator.html` into Pegasus project folder at `templates/web/components/paginator.html`
+Copy `templates/web/components/htmx_paginator.html` into Pegasus project folder at `templates/web/components/htmx_paginator.html`
 
 ### Update your Python path
 
@@ -77,6 +85,7 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
     'example_apps.cheetahs.apps.CheetahsConfig',
     'example_apps.tigers.apps.TigersConfig',
     'example_apps.pumas.apps.PumasConfig',
+    'example_apps.herons.apps.HeronsConfig',
 ```
 
 * Also in `project_slug/settings.py`, to `TEMPLATES` `'DIRS'` key add:
@@ -90,6 +99,7 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 ```python
     path('frogs/', include('example_apps.frogs.urls')),
     path('cheetahs/', include('example_apps.cheetahs.urls')),
+    path('herons/', include('example_apps.herons.urls')),
 ```
 
 * Also in `project_slug/urls.py`, to `team_urlpatterns`, add:
@@ -104,7 +114,7 @@ sys.path.append(str(base_dir / 'pegasus-example-apps'))
 ### Update your database
 
 ```bash
-./manage.py makemigrations frogs toads polliwogs cheetahs tigers pumas
+./manage.py makemigrations frogs toads polliwogs cheetahs tigers pumas herons
 ./manage.py migrate
 ```
 
@@ -116,3 +126,4 @@ Any and all comments and suggestions welcome. [peter@cherna.com](mailto:peter@ch
 * The API entry points for Team-specific apps (Toads, Tigers, Pumas) handles team-filtering and related logic, but I'd like to build a clean Mixin to handle that
 * Only standard (Bulma) templates are currently supplied
 * There is an `UnorderedObjectListWarning` I haven't yet looked into, for team-specific CBVs
+* For Herons, the `?page=n` query-parameter in the URL drives the initial page, but is not updated when you move through the pages

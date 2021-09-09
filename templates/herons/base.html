@@ -1,0 +1,22 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block page_head %}
+  <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+{% endblock page_head %}
+
+{% block body %}
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script>
+  // hook up csrf tokens to all htmx requests
+  document.body.addEventListener('htmx:configRequest', (event) => {
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!-- htmx requests and inserts this HTML when things change -->
+{% include "web/components/htmx_paginator.html" %}
+
+{% for object in object_list %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <div class="card-header-title is-size-4"><a href="{% url 'herons:heron-detailview' object.id %}">{{ object.name }}</a></div>
+        </div>
+        <div class="card-content">
+            <div>Id: {{ object.id }}</div>
+            <div>Number: {{ object.number }}</div>
+        </div>
+    </div>
+{% endfor %}
+
+{% include "web/components/htmx_paginator.html" %}

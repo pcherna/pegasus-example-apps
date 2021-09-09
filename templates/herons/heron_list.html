@@ -1,0 +1,16 @@
+{% extends "herons/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="title is-3 mt-4">Herons</div>
+<div class="subtitle is-5">Herons are example objects (CBV) that show off some htmx</div>
+
+<a class="button is-primary" href="{% url 'herons:heron-createview' %}">+ New Heron</a>
+
+<!-- This div acts as the container that receives htmx-driven updates to the list -->
+<!-- We use htmx to request the initial fill upon load, based on the ?page= in the URL -->
+<div id="object_list" hx-trigger="load" hx-get=" {{ htmx_list_url }}?page={{page}}">
+
+</div>
+{% endblock %}

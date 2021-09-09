@@ -1,0 +1,23 @@
+{% extends "herons/base.html" %}
+{% load static %}
+{% load socialaccount %}
+{% load bulma_form_tags %}
+{% block body %}
+<div id="fullpage-form-wrapper">
+    <div id="fullpage-form">
+        <h1 class="title is-size-4">Delete Heron</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <h2>Are you sure you want to delete the heron "{{ object.name }}"?</h2>
+
+            <div class="form-group mt-4">
+                <a class="button is-primary" href="{% url 'herons:heron-detailview' object.id %}">Cancel</a>
+                <button class="ml-4 button is-danger" type="submit">Yes, Delete</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
