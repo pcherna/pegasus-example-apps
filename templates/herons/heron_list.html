@@ -10,7 +10,7 @@
 
 <!-- This div acts as the container that receives htmx-driven updates to the list -->
 <!-- We use htmx to request the initial fill upon load, based on the ?page= in the URL -->
-<div id="object_list" hx-trigger="load" hx-get=" {{ htmx_list_url }}?page={{page}}">
+<div hx-trigger="load" hx-get="{{ htmx_list_url }}?page={{page}}" hx-target="this">
 
 </div>
 {% endblock %}
