@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'tigers:tiger-listview' team.slug %}">&lt; Tiger List</a>
         <a class="button is-primary" href="{% url 'tigers:tiger-createview' team.slug %}">+ New</a>
         <a class="button is-primary" href="{% url 'tigers:tiger-updateview' team.slug object.id %}">Edit</a>

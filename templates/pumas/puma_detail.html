@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'pumas:puma-listview' team.slug %}">&lt; Puma List</a>
         {% if perms.pumas.add_puma %}
             <a class="button is-primary" href="{% url 'pumas:puma-createview' team.slug %}">+ New</a>

@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'frogs:frog-listview' %}">&lt; Frog List</a>
         <a class="button is-primary" href="{% url 'frogs:frog-createview' %}">+ New</a>
         <a class="button is-primary" href="{% url 'frogs:frog-updateview' object.id %}">Edit</a>

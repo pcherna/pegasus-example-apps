@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'herons:heron-listview' %}">&lt; Heron List</a>
         <a class="button is-primary" href="{% url 'herons:heron-createview' %}">+ New</a>
         <a class="button is-primary" href="{% url 'herons:heron-updateview' object.id %}">Edit</a>

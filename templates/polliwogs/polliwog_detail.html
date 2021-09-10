@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'polliwogs:polliwog-listview' team.slug %}">&lt; Polliwog List</a>
         {% if perms.polliwogs.add_polliwog %}
             <a class="button is-primary" href="{% url 'polliwogs:polliwog-createview' team.slug %}">+ New</a>

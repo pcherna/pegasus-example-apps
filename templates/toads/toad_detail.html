@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'toads:toad-listview' team.slug %}">&lt; Toad List</a>
         <a class="button is-primary" href="{% url 'toads:toad-createview' team.slug %}">+ New</a>
         <a class="button is-primary" href="{% url 'toads:toad-updateview' team.slug object.id %}">Edit</a>

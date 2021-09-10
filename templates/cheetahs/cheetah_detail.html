@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="mt-5"></div>
+    <div class="mt-5">
         <a class="button is-link is-light" href="{% url 'cheetahs:cheetah-listview' %}">&lt; Cheetah List</a>
         <a class="button is-primary" href="{% url 'cheetahs:cheetah-createview' %}">+ New</a>
         <a class="button is-primary" href="{% url 'cheetahs:cheetah-updateview' object.id %}">Edit</a>
