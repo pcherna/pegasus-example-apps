@@ -1,5 +1,11 @@
 # Example Models for SaaS Pegasus
 
+## Use the New Version Instead!
+
+An improved and expanded version is now available at <https://github.com/pcherna/pegasus-example-apps-v2>. Please see that version instead.
+
+## Older version follows here
+
 Here are example apps for [SaaS Pegasus](https://saaspegasus.com). You can use these to get your own apps, models, and views up and running easily.
 
 * **Frogs** uses Function-Based Views, and the objects are cross-team
@@ -25,7 +31,7 @@ I chose names that don't appear anywhere in the Pegasus codebase, to make it eas
 
 * **Frogs** is mnemonic for **F**unction-Based Views
 * **Cheetahs** is mnemonic for **C**lass-Based Views
-* **Toads** and **Tigers** are mnemonic for **T**eam-specific, and are of course cousins to Frogs and Cheetahs. 
+* **Toads** and **Tigers** are mnemonic for **T**eam-specific, and are of course cousins to Frogs and Cheetahs.
 * **Polliwogs** and **Pumas** are mnemonic for **P**ermissions-based.
 * **Herons** are mnemonic for "htmx"
 
